@@ -9,7 +9,7 @@ Tested on:
 ## Installation
 
 ```bash
-$ go install github.com/cikupin/ntfs-wr 
+$ go install github.com/cikupin/ntfs-wr@latest
 ```
 
 ## Usage
