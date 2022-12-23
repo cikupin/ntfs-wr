@@ -9,6 +9,13 @@ import (
 	"github.com/oklog/ulid/v2"
 )
 
+// IsVolumeExist checks whether the given volume dir is exist or not
+func IsVolumeExist(volumeDirName string) bool {
+	_, err := os.Stat(fmt.Sprintf("/Volumes/%s", volumeDirName))
+	return !os.IsNotExist(err)
+
+}
+
 // MakeVolumeDir creates a folder on /Volumes to mount external disk partition
 // A returned folder name will assigned using ULID format
 func MakeVolumeDir() (string, error) {
