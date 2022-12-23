@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+	"time"
 
 	zlog "github.com/rs/zerolog/log"
 )
@@ -42,6 +43,7 @@ func getMappedDisk(info string) map[string]string {
 	return mappedDisk
 }
 
+// MountDisk mounts partition to the given volume dir name
 func MountDisk(disk string, volumeDirName string) error {
 	zlog.Info().Msg("mounting volume is in progres...")
 
@@ -51,5 +53,21 @@ func MountDisk(disk string, volumeDirName string) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func UnmountDisk(volumeDirName string) error {
+	zlog.Info().Msg("unmounting volume is in progres...")
+
+	commands := fmt.Sprintf("umount /Volumes/%s", volumeDirName)
+
+	_, err := exec.Command("bash", "-c", commands).Output()
+	if err != nil {
+		return err
+	}
+
+	// giving some time to make sure that the volume unmounted safely
+	time.Sleep(2 * time.Second)
+
 	return nil
 }

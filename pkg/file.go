@@ -38,3 +38,8 @@ func OpenVolumeDir(volumeDirName string) error {
 	}
 	return nil
 }
+
+// RemoveVolumeDir removes the given directory on /Volumes path
+func RemoveVolumeDir(volumeDirName string) error {
+	return os.RemoveAll(fmt.Sprintf("/Volumes/%s", volumeDirName))
+}

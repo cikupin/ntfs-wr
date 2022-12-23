@@ -75,23 +75,23 @@ var mount = &cobra.Command{
 			return
 		}
 
-		Box := box.New(box.Config{
+		infoBox := box.New(box.Config{
 			Px:    2,
 			Py:    1,
 			Type:  "Classic",
 			Color: "Cyan"})
 
 		fmt.Println()
-		Box.Print(
+		infoBox.Print(
 			"NTFS volume mounted succesfully!",
 			fmt.Sprintf(`Partition mounted on /Volumes/%s. Please do copy-paste there.
 Finder will open automatically. Or You can open the directory using the command below.
 
-	$ ntfs-wr open /Volumes/%s
+	$ ntfs-wr open %s
 
 Use this command to unmount the partition:
 
-	$ sudo ntfs-wr unmount /Volumes/%s
+	$ sudo ntfs-wr unmount %s
 `, dirName, dirName, dirName),
 		)
 	},

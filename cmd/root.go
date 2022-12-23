@@ -10,6 +10,7 @@ func init() {
 	RootCmd.AddCommand(listExternalDisk)
 	RootCmd.AddCommand(mount)
 	RootCmd.AddCommand(openVolume)
+	RootCmd.AddCommand(unmount)
 }
 
 var RootCmd = &cobra.Command{
