@@ -6,12 +6,15 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+
+	zlog "github.com/rs/zerolog/log"
 )
 
-const fileSystem = "FAT_32"
+const FileSystem = "NTFS"
 
+// ListExternalDisk return partition & volume from the external disk
 func ListExternalDisk() (map[string]string, error) {
-	commands := fmt.Sprintf("diskutil list | grep '%s' | awk '{print $(NF)}'", fileSystem)
+	commands := fmt.Sprintf("diskutil list | grep '%s' | awk '{print $(NF)}'", FileSystem)
 
 	diskResultByte, err := exec.Command("bash", "-c", commands).Output()
 	if err != nil {
@@ -37,4 +40,16 @@ func getMappedDisk(info string) map[string]string {
 	}
 
 	return mappedDisk
+}
+
+func MountDisk(disk string, volumeDirName string) error {
+	zlog.Info().Msg("mounting volume is in progres...")
+
+	commands := fmt.Sprintf("mount -t ntfs -o rw,auto,nobrowse /dev/%s /Volumes/%s", disk, volumeDirName)
+
+	_, err := exec.Command("bash", "-c", commands).Output()
+	if err != nil {
+		return err
+	}
+	return nil
 }

@@ -8,6 +8,7 @@ import (
 
 func init() {
 	RootCmd.AddCommand(listExternalDisk)
+	RootCmd.AddCommand(mount)
 }
 
 var RootCmd = &cobra.Command{

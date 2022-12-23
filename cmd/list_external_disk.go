@@ -25,6 +25,11 @@ var listExternalDisk = &cobra.Command{
 			zlog.Fatal().Err(err).Msg("cannot list external disk")
 		}
 
+		if len(disks) == 0 {
+			zlog.Warn().Msgf("No external disk found using %s file system", pkg.FileSystem)
+			return
+		}
+
 		fmt.Println()
 		printlnDiskInTable(disks)
 	},
